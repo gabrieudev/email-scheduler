@@ -7,8 +7,7 @@ import lombok.Getter;
 @Getter
 public enum StatusEnum {
     SENT(1L, "sent"),
-    PENDING(2L, "pending"),
-    FAILED(3L, "failed");
+    PENDING(2L, "pending");
 
     private Long id;
     private String status;

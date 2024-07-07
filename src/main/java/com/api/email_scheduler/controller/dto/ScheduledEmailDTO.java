@@ -32,7 +32,6 @@ public class ScheduledEmailDTO {
     @Future
     private Instant sendTime;
 
-    @NotNull
     private Status status;
 
     @NotNull
