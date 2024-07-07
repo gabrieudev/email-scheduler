@@ -62,6 +62,7 @@ public class ScheduledEmailService {
             );
             log.info("emails sent from {}", scheduledEmail.getSenderEmail());
             scheduledEmail.setStatus(sentStatus);
+            scheduledEmailRepository.save(scheduledEmail);
         };
     }
 
