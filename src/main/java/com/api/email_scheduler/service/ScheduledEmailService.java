@@ -2,6 +2,7 @@ package com.api.email_scheduler.service;
 
 import com.api.email_scheduler.controller.dto.Email;
 import com.api.email_scheduler.controller.dto.ScheduledEmailDTO;
+import com.api.email_scheduler.exception.BusinessRuleException;
 import com.api.email_scheduler.exception.EntityNotFoundException;
 import com.api.email_scheduler.model.Recipient;
 import com.api.email_scheduler.model.ScheduledEmail;
@@ -15,7 +16,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.function.Consumer;
@@ -70,6 +70,9 @@ public class ScheduledEmailService {
         Status pendingStatus = statusRepository.findByStatus("pending").orElseThrow();
         scheduledEmailDTO.setStatus(pendingStatus);
         ScheduledEmail scheduledEmail = mappingService.toModel(scheduledEmailDTO);
+        if (scheduledEmail.hasDuplicate()) {
+            throw new BusinessRuleException("Contains duplicate emails");
+        }
         scheduledEmailRepository.save(scheduledEmail);
     }
 

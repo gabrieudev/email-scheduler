@@ -53,4 +53,14 @@ public class ScheduledEmail {
         );
     }
 
+    public boolean hasDuplicate() {
+        List<String> emails = new ArrayList<>();
+        this.recipients.forEach(
+                recipient -> {
+                    emails.add(recipient.getEmail());
+                }
+        );
+        return emails.size() != emails.stream().distinct().count();
+    }
+
 }
