@@ -1,6 +1,7 @@
 package com.api.email_scheduler.controller.dto;
 
 import com.api.email_scheduler.model.Status;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -18,6 +19,7 @@ public class ScheduledEmailDTO {
     private Long id;
 
     @NotBlank
+    @Email
     private String senderEmail;
 
     @NotBlank
