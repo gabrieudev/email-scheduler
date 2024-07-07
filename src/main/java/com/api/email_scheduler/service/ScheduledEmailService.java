@@ -44,7 +44,7 @@ public class ScheduledEmailService {
         pendingScheduledEmails.forEach(sendEmail());
     }
 
-    public Consumer<ScheduledEmail> sendEmail() {
+    private Consumer<ScheduledEmail> sendEmail() {
         Status sentStatus = statusRepository.findByStatus("sent").orElseThrow();
         return scheduledEmail -> {
             List<Recipient> recipients = recipientRepository.findByScheduledEmail(scheduledEmail);
