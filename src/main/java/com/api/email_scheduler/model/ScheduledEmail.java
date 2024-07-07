@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,13 +32,25 @@ public class ScheduledEmail {
     private String body;
 
     @Column(nullable = false)
-    private Instant sendTime;
+    private LocalDateTime sendTime;
 
     @ManyToOne
     @JoinColumn(name = "status_id")
     private Status status;
 
-    @OneToMany(mappedBy = "scheduledEmail", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(
+            mappedBy = "scheduledEmail",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private List<Recipient> recipients = new ArrayList<>();
+
+    @PrePersist
+    @PreUpdate
+    public void associate() {
+        this.recipients.forEach(
+                recipient -> recipient.setScheduledEmail(this)
+        );
+    }
 
 }

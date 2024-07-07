@@ -1,6 +1,5 @@
 package com.api.email_scheduler.controller.dto;
 
-import com.api.email_scheduler.model.Recipient;
 import com.api.email_scheduler.model.Status;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
@@ -9,14 +8,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ScheduledEmailDTO {
-
     private Long id;
 
     @NotBlank
@@ -30,11 +28,11 @@ public class ScheduledEmailDTO {
 
     @NotNull
     @Future
-    private Instant sendTime;
+    private LocalDateTime sendTime;
 
     private Status status;
 
     @NotNull
-    private List<Recipient> recipients;
+    private List<RecipientDTO> recipients;
 
 }

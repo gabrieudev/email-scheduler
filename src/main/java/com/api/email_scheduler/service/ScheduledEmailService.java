@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -38,7 +39,7 @@ public class ScheduledEmailService {
     @Autowired
     private RecipientRepository recipientRepository;
 
-    public void send(Instant sendTime) {
+    public void send(LocalDateTime sendTime) {
         Status pendingStatus = statusRepository.findByStatus("pending").orElseThrow();
         List<ScheduledEmail> pendingScheduledEmails = scheduledEmailRepository.findByStatusAndSendTimeBefore(pendingStatus, sendTime);
         pendingScheduledEmails.forEach(sendEmail());

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
 @Component
@@ -18,7 +18,7 @@ public class EmailSendScheduler {
 
     @Scheduled(fixedDelay = 1, timeUnit = TimeUnit.MINUTES)
     public void send() {
-        Instant now = Instant.now();
+        LocalDateTime now = LocalDateTime.now();
         scheduledEmailService.send(now);
         log.info("running at {}", now);
     }
