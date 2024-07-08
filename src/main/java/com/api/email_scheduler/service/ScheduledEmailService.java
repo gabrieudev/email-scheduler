@@ -67,6 +67,9 @@ public class ScheduledEmailService {
     }
 
     public void save(ScheduledEmailDTO scheduledEmailDTO) {
+        if (scheduledEmailDTO.getRecipients().isEmpty()) {
+            throw new BusinessRuleException("Recipients is empty");
+        }
         Status pendingStatus = statusRepository.findByStatus("pending").orElseThrow();
         scheduledEmailDTO.setStatus(pendingStatus);
         ScheduledEmail scheduledEmail = mappingService.toModel(scheduledEmailDTO);
